@@ -1,12 +1,13 @@
 /* Carregando o express */
 const express = require('express');
 
+
 /* instancio o express e carregando a biblioteca do express dentro dessa const app. */
 const app = express();
 
-app.listen(3080,() => {
-    console.log('Página salva com sucesso nodemon!');
-})
+// Configura para aceitar JSON (DEPOIS DE CRIAR O APP)
+app.use(express.json());
+
 
 /* Lista de games. */
 
@@ -32,4 +33,24 @@ let games = [
 // para enviar a lista de games como resposta em formato JSON.
 app .get('/', (req, res) => {
     res.json(games);
+});
+
+app.post("/novogame", (req, res) => {
+   
+    let title = req.body.title;
+    let studio = req.body.studio;
+    let price = req.body.price;
+
+    // Criando um novo objeto de jogo com os dados recebidos um array games.
+    let newGame = {title, studio, price};
+
+    // Utiliza o método push do JavaScript para adicionar o jogo no array de games.
+    games.push(newGame);
+
+    res.send("ok");
+  
+});
+
+app.listen(3080,() => {
+    console.log('Página salva com sucesso nodemon!');
 })
