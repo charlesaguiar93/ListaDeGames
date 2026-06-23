@@ -35,7 +35,7 @@ app .get('/', (req, res) => {
     res.json(games);
 });
 
-app.post("/novogame", (req, res) => {
+/*app.post('/novogame', (req, res) => {
    
     let title = req.body.title;
     let studio = req.body.studio;
@@ -49,7 +49,20 @@ app.post("/novogame", (req, res) => {
 
     res.send("ok");
   
-});
+});  */
+app.put('/novogame/:index', (req, res) => {
+   
+    const {index} = req.params;
+    let title = req.body.title;
+    let studio = req.body.studio;
+    let price = req.body.price;
+
+    games[index] = {title, studio, price};
+
+   return res.json(games);
+  
+}); 
+
 
 app.listen(3080,() => {
     console.log('Página salva com sucesso nodemon!');
