@@ -35,7 +35,9 @@ app .get('/', (req, res) => {
     res.json(games);
 });
 
-/*app.post('/novogame', (req, res) => {
+
+/* Função para adicionar novos jogos OT6 */
+app.post('/novogame', (req, res) => {
    
     let title = req.body.title;
     let studio = req.body.studio;
@@ -49,19 +51,34 @@ app .get('/', (req, res) => {
 
     res.send("ok");
   
-});  */
+});  
+
+
+/* função Edição dos 5 jogos, modificar OT7  */
 app.put('/novogame/:index', (req, res) => {
    
     const {index} = req.params;
     let title = req.body.title;
-    let studio = req.body.studio;
-    let price = req.body.price;
+   let studio = req.body.studio;
+   let price = req.body.price;
+    
+    /* Array dos jogos games[index] = {title, studio, price} vão armazenar todos os jogos cadastrados. */
+   games[index] = {title, studio, price};
 
-    games[index] = {title, studio, price};
-
-   return res.json(games);
+  return res.json(games);
   
 }); 
+
+
+/* Função Deletar os jogos OT8 */
+app.delete("/:index", (req, res) => {
+   
+    const {index} = req.params;
+    games.splice(index, 1);
+    return res.json({message: "Jogo deletado com sucesso!"});
+    
+  
+});
 
 
 app.listen(3080,() => {
